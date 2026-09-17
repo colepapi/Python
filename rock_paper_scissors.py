@@ -23,11 +23,11 @@ def entry_for_user():
         else:
             print('Invalid Choice!')
 
-def show_choices():
+def show_choices(user_choice, comp_choice):
     print(f'You chose {games_emojis[user_choice]}')
     print(f'Computer chose {games_emojis[comp_choice]}')
 
-def decision_makers():
+def decision_makers(user_choice, comp_choice):
     if user_choice == comp_choice:
         print("Tied!")
     elif (
@@ -44,10 +44,12 @@ def game_on():
 
         comp_choice = random.choice(games_choices)
 
-        show_choices()
+        show_choices(user_choice, comp_choice)
 
-        decision_makers()
+        decision_makers(user_choice, comp_choice)
 
         move_on = input('Continue? (y/n): ').lower()
         if move_on != 'y' or move_on == 'n':
             break
+
+game_on()
