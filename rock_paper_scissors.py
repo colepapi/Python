@@ -3,7 +3,7 @@
 # c) whether you win or lose the game gives one the option to continue or quit(y/n)
 # d) in order to win:- rock beats scissors, scissors beats paper, paper beats rock
 # e) is a loop or a function required? --> yes while true loop & function for refactoring of the code
-# f) modularizing the function as follows: user enters their choice, see the users choice, what happens everytime the user enters the choice
+# f) modularizing the function as follows: user enters their choice, see the users choice, what happens every time the user enters the choice
 #    in order to determine the winner of the game, continue/quit of the game
 # g) are if...elif...else as well as try...except statements required? --> try...except statements not required
 
@@ -27,7 +27,7 @@ def show_choices(user_choice, comp_choice):
     print(f'You chose {games_emojis[user_choice]}')
     print(f'Computer chose {games_emojis[comp_choice]}')
 
-def decision_makers(user_choice, comp_choice):
+def determine_winner(user_choice, comp_choice):
     if user_choice == comp_choice:
         print("Tied!")
     elif (
@@ -46,7 +46,7 @@ def game_on():
 
         show_choices(user_choice, comp_choice)
 
-        decision_makers(user_choice, comp_choice)
+        determine_winner(user_choice, comp_choice)
 
         move_on = input('Continue? (y/n): ').lower()
         if move_on != 'y' or move_on == 'n':
