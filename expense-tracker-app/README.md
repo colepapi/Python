@@ -59,8 +59,6 @@ expense-tracker/
         ├── expense_reports.py
         ├── expense_service.py
         └── expense_utils.py
-└── tests/
-    └── smoke_test.py
 ```
 
 ### Prerequisites
@@ -70,10 +68,9 @@ expense-tracker/
 
 ## Run with Docker Compose
 
-If you do not already have a `.env`, copy `.env.example` to `.env` and replace the sample password/secret values. If `.env` already exists, keep it and add `PGADMIN_DEFAULT_EMAIL` and `PGADMIN_DEFAULT_PASSWORD` to it instead of overwriting it. Do not commit `.env`.
-
 ```powershell
 docker compose up --build -d
+
 docker compose ps
 ```
 
@@ -98,40 +95,13 @@ docker compose run --rm cli
 
 Stop the services with `docker compose down`. This keeps database and pgAdmin data. To delete the database data as well, use `docker compose down --volumes`—this is destructive.
 
-## Call the API with Thunder Client
-
-Install the Thunder Client VS Code extension and create a local Thunder Client environment with `baseUrl` set to `http://localhost:8000`.
-
-1. Send `POST {{baseUrl}}/users/` with JSON:
-   ```json
-   {
-     "full_name": "Test User",
-     "email": "your-unique-test-address@example.com",
-     "pin": "482917"
-   }
-   ```
-   Use a unique email and a six-digit PIN that is not one of the rejected weak PINs. Keep the returned `user_id` in a local environment only.
-2. Send `POST {{baseUrl}}/login` with `{"user_id":"<returned-user-id>","pin":"482917"}`. Copy `access_token` from the response.
-3. Call `GET {{baseUrl}}/users/me` or `GET {{baseUrl}}/expenses` with an **Authorization: Bearer** header containing that token.
-4. To create an expense, send `POST {{baseUrl}}/expenses` with the same Bearer token and JSON such as:
-   ```json
-   {
-     "category": "Food",
-     "subcategory": "Groceries",
-     "description": "Test purchase",
-     "amount": "12.34"
-   }
-   ```
-
-Do not commit test PINs, access tokens, or Thunder Client environment values. Swagger UI at <http://localhost:8000/docs> is another way to explore the API.
-
 ## GitHub Actions CI and image publishing
 
 The workflow in `.github/workflows/ci.yml` runs for pushes and pull requests targeting `Mini-Projects`. It validates the Compose configuration, builds and starts PostgreSQL, the API, dashboard, and pgAdmin, then runs `tests/smoke_test.py`. The smoke test checks that the dashboard and API start, then tests registration, login, authenticated user lookup, and expense creation/read-back against the real PostgreSQL service. No production credentials are needed; the workflow uses disposable CI-only credentials.
 
 To enable and use it:
 
-1. Push this project to a GitHub repository, including `Dockerfile`, `compose.yaml`, `schemas.sql`, `.env.example`, `tests/smoke_test.py`, and `.github/workflows/ci.yml`. Do not push `.env`.
+1. Push this project to a GitHub repository, including `Dockerfile`, `compose.yaml`, `schemas.sql` and `.github/workflows/ci.yml`. Do not push `.env`.
 2. In GitHub, open **Settings → Actions → General** and allow the repository to run the listed actions.
 3. Open a pull request targeting `Mini-Projects` from any branch, or push directly to `Mini-Projects`. Open the repository's **Actions** tab and inspect the **CI** run; a failure includes the Compose service logs.
 4. Merge or push to `Mini-Projects`. After the integration job passes, the workflow builds the shared app image and publishes SHA-tagged and `latest` images to GitHub Container Registry (GHCR). The first package may be private; grant the deployment host access to pull it or change its visibility in the package settings.
@@ -145,7 +115,9 @@ Create and activate a virtual environment, then install dependencies:
 
 ```powershell
 python -m venv venv
-.\venv\Scripts\Activate.ps1
+
+# activate python environment based on your OS
+
 pip install -r requirements.txt
 ```
 
