@@ -93,7 +93,7 @@ Run the interactive terminal app in a container with:
 docker compose run --rm cli
 ```
 
-Stop the services with `docker compose down`. This keeps database and pgAdmin data. To delete the database data as well, use `docker compose down --volumes`—this is destructive.
+Stop the services with `docker compose down`. This keeps database and pgAdmin data. To delete the database data as well, use `docker compose down --volumes`.
 
 ## GitHub Actions CI and image publishing
 
