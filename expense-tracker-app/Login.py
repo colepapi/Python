@@ -6,7 +6,7 @@ from src.expenses.expense_menu import run_expense_menu
 # main program
 if __name__ == "__main__":
 
-    print(f"{'=' * 10} Welcome to the Expense Tracker App! 💰 {'=' * 10} \n")
+    print(f"{'=' * 15} Welcome to the Expense Tracker App! 💰 {'=' * 15} \n")
 
     while True:
         print("1. Register")
