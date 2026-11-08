@@ -285,6 +285,9 @@ uvicorn main_api:app --reload
 Click the link that will provide a link - **`http://127.0.0.1:8000/docs`** redirecting one to the browser.\
 NB: The key generated has a timeout before it expires which can be modified in the file: main_api.py
 
+Generate a value for `JWT_SECRET_KEY` by running: **python -c "import secrets; print(secrets.token_hex(32))"** in the terminal.
+
+
 ![FastAPI GET and POST endpoints for both users and expenses](src/images/api/Screenshot_20261029_172436.png)
 
 As one may have noticed there is no `PUT`, `PATCH` or `DELETE` endpoints for the moment but it'll be created.
