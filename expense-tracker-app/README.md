@@ -123,6 +123,8 @@ pip install -r requirements.txt
 
 Configure `.env` with credentials for a PostgreSQL server reachable from the host (for a local Compose database, use `localhost` for `DB_HOST` and publish PostgreSQL's port in Compose). Set `JWT_SECRET_KEY` to a randomly generated secret. Then launch the terminal app with `python Login.py`; launch the API with `uvicorn src.api.main_api:app --host 127.0.0.1 --port 8000`, or the dashboard with `streamlit run src/expense_dashboard.py`.
 
+Generate a value for `JWT_SECRET_KEY` by running: **python -c "import secrets; print(secrets.token_hex(32))"** in the terminal.
+
 ### Database schema
 
 In the Docker setup, `schemas.sql` is automatically run when the PostgreSQL data volume is initialized for the first time. For a manually managed database, run it once with pgAdmin's Query Tool or `psql -d <database> -f schemas.sql`.
@@ -284,8 +286,6 @@ uvicorn main_api:app --reload
 
 Click the link that will provide a link - **`http://127.0.0.1:8000/docs`** redirecting one to the browser.\
 NB: The key generated has a timeout before it expires which can be modified in the file: main_api.py
-
-Generate a value for `JWT_SECRET_KEY` by running: **python -c "import secrets; print(secrets.token_hex(32))"** in the terminal.
 
 
 ![FastAPI GET and POST endpoints for both users and expenses](src/images/api/Screenshot_20261029_172436.png)
